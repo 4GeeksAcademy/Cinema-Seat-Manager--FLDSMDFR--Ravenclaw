@@ -15,12 +15,12 @@ Si el asiento está ocupado 1, mostrar X.
 
 Mostrar los números de las filas y columnas. (posiciones, index)
 Imprimir el resultado.
-3. Contador de asientos: @Matias Idiart Viera 3
+3. Contador de asientos: @Matias Idiart Viera 
 
-Recibir la matriz de la sala.
-Contar los asientos disponibles.
+## Recibir la matriz de la sala.
+## Contar los asientos disponibles.
 
-Si el asiento es 0, aumenta el contador de disponibles.
+- Si el asiento es 0, aumenta el contador de disponibles.
 
 Contar los asientos ocupados.
 
@@ -39,9 +39,9 @@ Si están disponibles: devolver la posición.
 Si no encuentra asientos contiguos disponibles, imprimir “No quedan asientos juntos.”
 5. Reservar un asiento: (segundo) @Matias Idiart Viera 2
 
-Recibir la matriz de la sala.
-Imprimir la matriz de la sala.
-Le mandamos la fila y la columna que queremos reservar. 
+-[-] recibir la matriz de la sala.
+-[-]Imprimir la matriz de la sala.
+-[-]Le mandamos la fila y la columna que queremos reservar. 
 
 Comprobar si el asiento está disponible. 
 
