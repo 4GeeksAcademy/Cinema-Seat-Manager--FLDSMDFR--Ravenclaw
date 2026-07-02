@@ -32,6 +32,17 @@ console.log(reservarAsiento(salaCine, 0, 0));
 console.log(reservarAsiento(salaCine, 0, 1));
 
 
+
+console.log(reservarAsiento(salaCine, 2, 4));
+console.log(reservarAsiento(salaCine, 2, 5));
+console.log(reservarAsiento(salaCine, 0, 1));
+console.log(reservarAsiento(salaCine, 0, 2));
+console.log(reservarAsiento(salaCine, 0, 3));
+console.log(reservarAsiento(salaCine, 0, 4));
+console.log(reservarAsiento(salaCine, 2, 5));
+console.log(reservarAsiento(salaCine, 0, 1));
+
+
 //#4 CONTADOR DE ASIENTOS.
 //---------------------------------------------------------------------------------------------
 // Función para contar cuántos asientos están ocupados y disponibles en toda la sala.
@@ -59,7 +70,7 @@ console.log("Contador:", contadorDeAsiento);
 //--Función para imprimir la sala e cine con formato elegible--// 
 function imprimirSala(sala: number[][]): void {
     // Imprimir cabecera de columnas
-    let header = "   "; // Espacio para los números de fila
+    let header = "   "; // Espacio para los números de fila
     for (let i = 0; i < sala[0].length; i++) {
         header += ` C${i + 1}`;
     }
@@ -89,6 +100,21 @@ console.log ("Visualización de la Sala de Cine");
 imprimirSala(salaCine)
 /////////////// FIN DE IMPRIMIR SALA - 2 /////////////////////
 
+
+// Función para reservar un asiento por fila y columna.
+function reservarAsiento(sala: number[][], fila: number, columna: number): string {
+    // Validar que la fila y columna estén dentro de los límites de la sala
+    if (fila < 0 || fila >= sala.length || columna < 0 || columna >= sala[0].length) {
+        return "Posición inválida.";
+    }
+    if (sala[fila][columna] === 1) {
+        return "Asiento ocupado, no se puede reservar.";
+    }
+    sala[fila][columna] = 1;
+    return "La reserva se ha realizado con éxito!";
+}
+
+// Ejemplo de uso:
 //////////// BUSCAR DOS ASIENTOS CONTIGUOS //////////////////
 type ParAsientosContiguos = {
     fila: number;
