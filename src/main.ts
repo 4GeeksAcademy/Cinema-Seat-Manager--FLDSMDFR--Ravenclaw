@@ -1,3 +1,5 @@
+import "./style.css";
+
 //#2 CREAR LA SALA
 //--------------------------------------------------------------------------------------------
 // Función para crear una sala de cine con un array bidimensional que representa los asientos.
@@ -149,4 +151,95 @@ if (primerParContiguo) {
     console.log("No hay dos asientos contiguos disponibles.");
 }
 //////////// FIN --- BUSCAR DOS ASIENTOS CONTIGUOS //////////////////
+
+const rowsCount = document.querySelector<HTMLElement>("#rows-count");
+const columnsCount = document.querySelector<HTMLElement>("#columns-count");
+const capacityCount = document.querySelector<HTMLElement>("#capacity-count");
+const availableCount = document.querySelector<HTMLElement>("#available-count");
+const occupiedCount = document.querySelector<HTMLElement>("#occupied-count");
+const seatMap = document.querySelector<HTMLElement>("#seat-map");
+const statusMessage = document.querySelector<HTMLElement>("#status-message");
+const findContiguousButton = document.querySelector<HTMLButtonElement>("#find-contiguous");
+
+function actualizarPanel(): void {
+    if (!rowsCount || !columnsCount || !capacityCount || !availableCount || !occupiedCount) {
+        return;
+    }
+
+    const resumen = contarAsientos(salaCine);
+
+    rowsCount.textContent = String(salaCine.length);
+    columnsCount.textContent = String(salaCine[0]?.length ?? 0);
+    capacityCount.textContent = String(salaCine.length * (salaCine[0]?.length ?? 0));
+    availableCount.textContent = String(resumen.disponibles);
+    occupiedCount.textContent = String(resumen.ocupados);
+}
+
+function actualizarMensaje(mensaje: string): void {
+    if (statusMessage) {
+        statusMessage.textContent = mensaje;
+    }
+}
+
+function renderSalaVisual(): void {
+    if (!seatMap) {
+        return;
+    }
+
+    seatMap.innerHTML = "";
+
+    salaCine.forEach((fila, indiceFila) => {
+        const row = document.createElement("div");
+        row.className = "grid grid-cols-[auto_1fr] items-center gap-3";
+
+        const rowLabel = document.createElement("div");
+        rowLabel.className = "w-10 text-sm font-semibold text-slate-400";
+        rowLabel.textContent = `F${indiceFila + 1}`;
+
+        const seatsRow = document.createElement("div");
+        seatsRow.className = "grid grid-cols-5 gap-2 sm:grid-cols-10";
+
+        fila.forEach((asiento, indiceColumna) => {
+            const seatButton = document.createElement("button");
+            const ocupado = asiento === 1;
+
+            seatButton.type = "button";
+            seatButton.className = ocupado
+                ? "rounded-xl border border-rose-300/20 bg-rose-300/80 px-3 py-3 text-xs font-bold text-slate-950 opacity-90"
+                : "rounded-xl border border-emerald-300/30 bg-emerald-300 px-3 py-3 text-xs font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-slate-900";
+            seatButton.textContent = `C${indiceColumna + 1}`;
+            seatButton.disabled = ocupado;
+            seatButton.setAttribute("aria-label", `Fila ${indiceFila + 1}, columna ${indiceColumna + 1}`);
+
+            seatButton.addEventListener("click", () => {
+                const mensaje = reservarAsiento(salaCine, indiceFila, indiceColumna);
+                actualizarMensaje(`F${indiceFila + 1} C${indiceColumna + 1}: ${mensaje}`);
+                renderSalaVisual();
+            });
+
+            seatsRow.appendChild(seatButton);
+        });
+
+        row.appendChild(rowLabel);
+        row.appendChild(seatsRow);
+        seatMap.appendChild(row);
+    });
+
+    actualizarPanel();
+}
+
+findContiguousButton?.addEventListener("click", () => {
+    const siguientePar = buscarDosAsientosContiguos(salaCine);
+
+    if (siguientePar) {
+        actualizarMensaje(
+            `Primer par contiguo disponible: F${siguientePar.fila}, C${siguientePar.asientos[0]} y C${siguientePar.asientos[1]}.`
+        );
+        return;
+    }
+
+    actualizarMensaje("No hay dos asientos contiguos disponibles.");
+});
+
+renderSalaVisual();
 

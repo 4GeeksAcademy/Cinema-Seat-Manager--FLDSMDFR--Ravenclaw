@@ -3,22 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello World with Typescript</title>
+    <title>Gestor de Asientos de Cine</title>
   </head>
-  <body class="min-h-screen bg-slate-100 text-slate-900">
-    <main class="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center gap-6 p-6">
-      <h1 class="text-4xl font-bold tracking-tight">Hello World with Typescript</h1>
+  <body class="min-h-screen bg-slate-950 text-slate-100">
+    <main class="mx-auto flex min-h-screen max-w-6xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8">
+      <section class="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950 shadow-2xl shadow-black/30">
+        <div class="grid gap-8 p-6 lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
+          <div class="space-y-5">
+            <span class="inline-flex items-center rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-amber-200">
+              Cinema Seat Manager
+            </span>
+            <div class="space-y-3">
+              <h1 class="max-w-2xl text-4xl font-black tracking-tight text-white sm:text-5xl">
+                Reserva asientos con un mapa visual, no desde la consola.
+              </h1>
+              <p class="max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+                La lógica TypeScript actual sigue siendo la misma: crear la sala, reservar asientos,
+                contar disponibilidad y buscar asientos contiguos. Esta interfaz solo la expone de
+                forma visual.
+              </p>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-3">
+              <article class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Filas</p>
+                <p id="rows-count" class="mt-2 text-3xl font-bold text-white"></p>
+              </article>
+              <article class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Columnas</p>
+                <p id="columns-count" class="mt-2 text-3xl font-bold text-white"></p>
+              </article>
+              <article class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Capacidad</p>
+                <p id="capacity-count" class="mt-2 text-3xl font-bold text-white"></p>
+              </article>
+            </div>
+          </div>
 
-      <section class="w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <img
-          src="/rigo-baby.jpg"
-          alt="Hello Rigo"
-          class="h-64 w-full bg-slate-50 object-contain p-2"
-        />
-        <div class="p-5">
-          <h2 class="text-xl font-semibold text-slate-900">Hello Rigo</h2>
-          <p id="app" class="mt-2 text-sm text-slate-600"></p>
+          <aside class="rounded-3xl border border-white/10 bg-slate-950/60 p-6 shadow-lg shadow-black/20 backdrop-blur-sm">
+            <div class="space-y-4">
+              <h2 class="text-xl font-semibold text-white">Resumen de la sala</h2>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <div class="rounded-2xl bg-emerald-400/10 p-4 ring-1 ring-emerald-400/20">
+                  <p class="text-sm text-emerald-200">Disponibles</p>
+                  <p id="available-count" class="mt-2 text-3xl font-bold text-white"></p>
+                </div>
+                <div class="rounded-2xl bg-rose-400/10 p-4 ring-1 ring-rose-400/20">
+                  <p class="text-sm text-rose-200">Ocupados</p>
+                  <p id="occupied-count" class="mt-2 text-3xl font-bold text-white"></p>
+                </div>
+              </div>
+              <button
+                id="find-contiguous"
+                type="button"
+                class="inline-flex w-full items-center justify-center rounded-2xl bg-amber-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-slate-950"
+              >
+                Buscar 2 asientos contiguos
+              </button>
+              <p id="status-message" class="min-h-12 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm leading-6 text-slate-200">
+                Haz clic en cualquier asiento libre para reservarlo.
+              </p>
+              <div class="flex flex-wrap gap-3 text-xs text-slate-300">
+                <span class="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2">
+                  <span class="h-3 w-3 rounded-full bg-emerald-300"></span>
+                  Libre
+                </span>
+                <span class="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-2">
+                  <span class="h-3 w-3 rounded-full bg-rose-300"></span>
+                  Ocupado
+                </span>
+              </div>
+            </div>
+          </aside>
         </div>
+      </section>
+
+      <section class="rounded-3xl border border-slate-800 bg-slate-900 p-4 shadow-2xl shadow-black/20 sm:p-6">
+        <div class="mb-6 flex items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-white">Mapa de asientos</h2>
+            <p class="text-sm text-slate-400">Pantalla al frente. Cada botón representa un asiento.</p>
+          </div>
+        </div>
+
+        <div class="mb-6 rounded-full border border-amber-300/20 bg-gradient-to-r from-amber-300/70 via-amber-200 to-amber-300/70 px-6 py-3 text-center text-sm font-bold uppercase tracking-[0.4em] text-slate-950 shadow-lg shadow-amber-900/20">
+          Pantalla
+        </div>
+
+        <div id="seat-map" class="space-y-3"></div>
       </section>
     </main>
     <script type="module" src="/src/main.ts"></script>
