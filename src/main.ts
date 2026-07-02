@@ -1,14 +1,18 @@
 
 // Función para crear una sala de cine con un array bidimensional que representa los asientos.
+    const numeroFilas = 8;
+    const numeroColumnas = 10;
+
 function getSala():number [][]{
     // 1. Crear una matriz vacía (contenedor principal)
     const sala: number [][] = [];
+   
 
     // 2. Añadir 8 filas
-    for (let fila = 0; fila < 8; fila++) {
+    for (let fila = 0; fila < numeroFilas; fila++) {
         const filaArray: number[] = []; // Creamos una fila vacía para este ciclo
         // Añadir 10 columnas (asientos) con valor 0 (disponibles)
-        for (let columna = 0; columna < 10; columna++) {
+        for (let columna = 0; columna < numeroColumnas; columna++) {
             filaArray.push(0)   
             ; // 0 representa asiento disponible
         }
