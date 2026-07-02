@@ -24,6 +24,13 @@ function getSala():number [][]{
 }
 const salaCine = getSala();
 console.log("Sala:", salaCine);
+//Comprobaciones a continuación//
+console.log(reservarAsiento(salaCine, 2, 4));
+console.log(reservarAsiento(salaCine, 4, 6));
+console.log(reservarAsiento(salaCine, 2, 5));
+console.log(reservarAsiento(salaCine, 0, 0));
+console.log(reservarAsiento(salaCine, 0, 1));
+
 
 
 console.log(reservarAsiento(salaCine, 2, 4));
@@ -108,3 +115,38 @@ function reservarAsiento(sala: number[][], fila: number, columna: number): strin
 }
 
 // Ejemplo de uso:
+//////////// BUSCAR DOS ASIENTOS CONTIGUOS //////////////////
+type ParAsientosContiguos = {
+    fila: number;
+    asientos: [number, number];
+};
+
+function buscarDosAsientosContiguos(sala: number[][]): ParAsientosContiguos | null {
+    for (let fila = 0; fila < sala.length; fila++) {
+        for (let columna = 0; columna < sala[fila].length - 1; columna++) {
+            const asientoActual = sala[fila][columna];
+            const asientoSiguiente = sala[fila][columna + 1];
+
+            if (asientoActual === 0 && asientoSiguiente === 0) {
+                return {
+                    fila: fila + 1,
+                    asientos: [columna + 1, columna + 2],
+                };
+            }
+        }
+    }
+
+    return null;
+}
+
+const primerParContiguo = buscarDosAsientosContiguos(salaCine);
+
+if (primerParContiguo) {
+    console.log(
+        `Primer par contiguo disponible: F${primerParContiguo.fila} - C${primerParContiguo.asientos[0]} y C${primerParContiguo.asientos[1]}`
+    );
+} else {
+    console.log("No hay dos asientos contiguos disponibles.");
+}
+//////////// FIN --- BUSCAR DOS ASIENTOS CONTIGUOS //////////////////
+
