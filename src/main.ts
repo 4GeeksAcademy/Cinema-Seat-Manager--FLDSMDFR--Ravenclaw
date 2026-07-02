@@ -48,3 +48,36 @@ const contadorDeAsiento = contarAsientos(salaCine)
 console.log("Contador:", contadorDeAsiento);
 
 
+//////////////////// IMPRIMIR SALA - 2 //////////////////////////
+//--Función para imprimir la sala e cine con formato elegible--// 
+function imprimirSala(sala: number[][]): void {
+    // Imprimir cabecera de columnas
+    let header = "   "; // Espacio para los números de fila
+    for (let i = 0; i < sala[0].length; i++) {
+        header += ` C${i + 1}`;
+    }
+    console.log(header);
+
+    // Imprimir filas con sus números
+    for (let fila = 0; fila < sala.length; fila++) {
+        // Añadimos el número de fila al principio
+        let filaTexto = ` F${fila + 1} `;
+        if (fila + 1 <= 9) { // Añadir espacio extra para alinear
+            filaTexto = ` F${fila + 1} `;
+        }
+        // Recorremos cada asiento en la fila
+        for (let columna = 0; columna < sala[fila].length; columna++) {
+            // Verificamos si el asiento está ocupado o libre
+            if (sala[fila][columna] === 0) {
+                filaTexto += " L "; // L para asiento Libre
+            } else {
+                filaTexto += " X "; // X para asiento ocupado (1)
+            }
+        }
+        console.log(filaTexto.trim());
+    }
+}
+console.log ("Visualización de la Sala de Cine");
+
+imprimirSala(salaCine)
+/////////////// FIN DE IMPRIMIR SALA - 2 /////////////////////
